@@ -59,9 +59,14 @@
               <div class="left"></div>
               <text class="iconfont icon-jiantou font12"></text>
             </div>
-            <div v-if="!userInfo.vipName" class="text-center font12" style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff">开启</div>
+            <div
+				@click="$yrouter.push('/pages/member/person/open')"
+				v-if="!userInfo.vipName"
+				class="text-center font12"
+				style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff"
+			>开启</div>
             <div v-else class="font12" style="color:#c9c9c9;margin-top:24rpx;">
-              当前级别: <span style="color:#F86741">{{userInfo.vipName||'vip团长'}}</span>
+              当前级别: <span style="color:#F86741">{{userInfo.vipName}}</span>
             </div>
           </div>
           <div style="height:136rpx;border-left:1rpx dashed #E1E1E1;border-right:1rpx dashed #E1E1E1"></div>

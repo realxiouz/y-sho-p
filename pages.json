@@ -416,6 +416,12 @@
 			"style": {
 				"navigationBarTitleText": "直播列表"
 			}
+		},
+		{
+			"path": "pages/member/person/open",
+			"style": {
+				"navigationBarTitleText": "个人开户"
+			}
 		}
 	],
 	"globalStyle": {
