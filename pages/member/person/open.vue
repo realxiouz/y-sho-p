@@ -32,13 +32,18 @@
 		</template>
 		<template v-if="step==1">
 			<div>
-				
+				<div class="flex align-center font14 p13-h">
+					收货地址
+					<div class="left"></div>
+					<div class="font12" style="color:">切换地址</div>
+				</div>
 			</div>
+			<Qiniu></Qiniu>
 		</template>
 		
 		<div class="fixed-wrap flex align-center justify-around">
-			<div class="bottom-btn">上一步</div>
-			<div class="bottom-btn red">下一步</div>
+			<div class="bottom-btn" @click="onMinusStep">上一步</div>
+			<div class="bottom-btn red" @click="onAddStep">下一步</div>
 		</div>
 	</div>
 </template>
@@ -46,6 +51,7 @@
 <script>
 	import CitySelect from "@/components/CitySelect";
 	import { getAddress, postAddress, getCity } from "@/api/user";
+	import Qiniu from '@/components/Qiniu'
 	
 	export default {
 		mounted() {
@@ -60,7 +66,8 @@
 			}
 		},
 		components: {
-		  CitySelect
+		  CitySelect,
+		  Qiniu,
 		},
 		methods: {
 			getCityList() {
@@ -85,6 +92,12 @@
 			    city_id: values.city.id
 			  };
 			  this.addressText = `${this.address.province}${this.address.city}${this.address.district}`;
+			},
+			onAddStep() {
+				this.step++
+			},
+			onMinusStep() {
+				this.step--
 			}
 		}
 	}
