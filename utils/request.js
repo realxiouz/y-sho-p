@@ -64,6 +64,7 @@ function baseRequest(options) {
   // 如果接口需要登录，携带 token 去请求
 
   options.headers = {
+	  // 'content-type': 'application/x-www-form-urlencoded',
     ...options.headers
   }
 

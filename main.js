@@ -21,6 +21,10 @@ import cuCustom from '@/components/colorui/components/cu-custom.vue'
 //     // TODO
 // });
 
+import request from "@/utils/request";
+
+Vue.prototype.$r = request
+
 import {
 	parseRoute,
 	_router,

@@ -429,7 +429,16 @@
 				"navigationBarTitleText": "企业开户"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/member/product/list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择商品",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "Yshop",

@@ -108,6 +108,9 @@
 				<div style="height: 30rpx;"></div>
 			</div>
 		</template>
+		<template v-if="step==3">
+			<div @click="$yrouter.push('/pages/member/product/list')">选择商品</div>
+		</template>
 		<div style="height:120rpx;"></div>
 		<div class="fixed-wrap flex align-center justify-around">
 			<div class="bottom-btn" @click="onMinusStep">上一步</div>
@@ -145,6 +148,11 @@
 	export default {
 		mounted() {
 			this.getCityList()
+			
+			this.$r.get('agent/level/list')
+				.then(r => {
+					console.log(r)
+				})
 		},
 		data() {
 			return {

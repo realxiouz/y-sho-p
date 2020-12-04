@@ -9,6 +9,8 @@
 </template>
 
 <script>
+	import * as qiniu from 'qiniu-js'
+	
 	export default {
 		props: {
 			title: {
@@ -27,7 +29,24 @@
 					count: 1,
 					success: (res) => {
 						let {tempFiles} = res
-						this.src = tempFiles[0].path
+						const config = {
+						  useCdnDomain: true,
+						  region: qiniu.region.z2
+						}
+						
+						this.$r.post('api/upload/getTokenQiniu', {
+							fileName: tempFiles[0].name,
+						})
+							.then(r => {
+								const {domain, token, key} = r.data
+								const observable = qiniu.upload(tempFiles[0], key, token, null, config)
+								const subscription = observable.subscribe(r => {}, e => {
+									console.log(e)
+								}, r => {
+									console.log(r)
+									this.src = `${domain}/${r.key}`
+								})
+							})
 					}
 				})
 			}
