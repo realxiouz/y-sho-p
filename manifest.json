@@ -160,7 +160,7 @@
         "usingComponents" : true
     },
     "h5" : {
-        "title" : "yshop",
+        "title" : "卿悦商城",
         "devServer" : {
             "disableHostCheck" : true
         },

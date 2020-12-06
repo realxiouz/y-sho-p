@@ -53,14 +53,14 @@
           </view>
         </view>
         <div class="bg-white border5 flex align-center" style="height:214rpx;margin-top:15rpx;">
-          <div class="left" style="padding: 50rpx 30rpx 50rpx 60rpx;">
+          <div class="left" style="padding: 50rpx 30rpx 50rpx 60rpx;" @click="onPerson">
             <div class="flex align-center" >
               <div class="font16 text-bold">{{!userInfo.levelGr?'开通':''}}个人账户</div>
               <div class="left"></div>
               <text class="iconfont icon-jiantou font12"></text>
             </div>
             <div
-              @click="onPerson"
+              
               v-if="!userInfo.levelGr"
               class="text-center font12"
               style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff"
@@ -70,14 +70,14 @@
             </div>
           </div>
           <div style="height:136rpx;border-left:1rpx dashed #E1E1E1;border-right:1rpx dashed #E1E1E1"></div>
-          <div class="left" style="padding: 50rpx 30rpx 50rpx 60rpx;">
+          <div class="left" style="padding: 50rpx 30rpx 50rpx 60rpx;" @click="onStore">
             <div class="flex align-center" >
               <div class="font16 text-bold">{{!userInfo.levelDl?'开通':''}}企业账户</div>
               <div class="left"></div>
               <text class="iconfont icon-jiantou font12"></text>
             </div>
             <div
-            	@click="onStore"
+            	
             	v-if="!userInfo.levelDl"
             	class="text-center font12"
             	style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff"
@@ -159,7 +159,7 @@
       </view>
       <view class="by">
         <view>
-          <text class="by-text">www.yixiang.co提供技术支持</text>
+          <text class="by-text">卿悦商城</text>
         </view>
       </view>
       <!-- <SwitchWindow
@@ -417,7 +417,7 @@
             type: 2,
             apply: this.apply1,
           })
-          this.$yrouter.push('/pages/member/product/list')
+          this.$yrouter.push({path: '/pages/member/product/list', query: {type: 2}})
         } else {
           this.$yrouter.push('/pages/member/person/open')
         }

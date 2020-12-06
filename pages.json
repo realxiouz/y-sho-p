@@ -3,7 +3,7 @@
 		{
 			"path": "pages/Loading/index",
 			"style": {
-				"navigationBarTitleText": "yshop商城"
+				"navigationBarTitleText": "卿悦商城"
 			}
 		},
 		{
@@ -39,7 +39,7 @@
 		{
 			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "yshop商城",
+				"navigationBarTitleText": "卿悦商城",
 				"navigationBarTextStyle": "white",
 				// "enablePullDownRefresh": true,
 				"navigationStyle": "custom"
@@ -441,7 +441,7 @@
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "Yshop",
+		"navigationBarTitleText": "卿悦商城",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
 		"navigationStyle": "default"

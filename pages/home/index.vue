@@ -5,7 +5,7 @@
     <!--			<view class="cu-custom" :style="[{height:CustomBar+ 'px',}]">-->
     <!--				<view class="cu-bar fixed" :style="customStyle" :class="[bgcolor]">-->
     <!--					<view class="action">-->
-    <!--						<text class="nav-title Shop-selector-rect">{{ 'yshop商城' }}</text>-->
+    <!--						<text class="nav-title Shop-selector-rect">{{ '卿悦商城' }}</text>-->
     <!--					</view>-->
     <!--					<view class="content" :style="[{top:StatusBar + 'px'}]">-->
 
@@ -21,7 +21,7 @@
     >
       <cu-custom :isBack="true" :bgColor="bgcolor">
         <block slot="backText">
-          <text class="nav-title shopro-selector-rect">{{ "YSHOP商城" }}</text>
+          <text class="nav-title shopro-selector-rect">{{ "卿悦商城" }}</text>
         </block>
       </cu-custom>
     </view>

@@ -38,7 +38,8 @@
 <script>
 	export default {
 		mounted() {
-			this.$r.get('products?typeKh=3')
+			let type = this._route.query.type || 3
+			this.$r.get(`products?typeKh=${type}`)
 				.then(r => {
 					this.list = r.data
 				})

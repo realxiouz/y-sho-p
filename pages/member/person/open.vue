@@ -176,7 +176,7 @@
 								type: 2,
 								apply: r.data.id,
 							})
-							this.$yrouter.push('/pages/member/product/list')
+							this.$yrouter.push({path: '/pages/member/product/list', query: {type: 2} })
 						})
 						.finally(_ => {
 							// this.$yrouter.push('/pages/member/product/list')
@@ -200,7 +200,7 @@
 					if (!this.name) {
 						uni.showToast({
 							icon: 'none',
-							title: '填写联系人'
+							title: '填写真实姓名'
 						})
 						return false
 					}
