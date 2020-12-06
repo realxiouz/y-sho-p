@@ -397,7 +397,7 @@ export function getLogout() {
  * 绑定手机号
  * */
 export function bindingPhone(data) {
-	return request.post("wxapp/binding", data);
+	return request.post("/binding", data);
 }
 
 /*

@@ -94,7 +94,8 @@ export default {
   mounted: function () {
     this.avatar = this.userInfo.avatar;
     this.isWeixin = isWeixin();
-    this.getUserInfo();
+    // this.getUserInfo();
+    this.$store.dispatch("getUser", true)
   },
   methods: {
     goChangePassword() {
