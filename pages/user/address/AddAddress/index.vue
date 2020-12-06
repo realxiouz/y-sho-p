@@ -182,7 +182,9 @@ export default {
         province: values.province.name || "",
         city: values.city.name || "",
         district: values.district.name || "",
-        city_id: values.city.id
+        province_id: values.province.id,
+        city_id: values.city.id,
+        district_id: values.district.id
       };
       this.addressText = `${this.address.province}${this.address.city}${this.address.district}`;
       // this.addressText =

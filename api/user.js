@@ -263,6 +263,15 @@ export function postSignIntegral(sign) {
 }
 
 /*
+ * 绑定推广人
+ * */
+export function bindSpread(spread) {
+	return request.get("/spread/bind", {
+		spread: spread
+	});
+}
+
+/*
  * 推广数据
  * */
 export function getSpreadInfo() {

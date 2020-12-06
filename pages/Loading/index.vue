@@ -16,6 +16,7 @@
   // import request from "@//api/request";
   import {
     wxappAuth,
+	bindSpread
   } from "@/api/user";
   import dayjs from "dayjs";
   import store from "@/store";
@@ -42,10 +43,22 @@
       }
       // 判断是否是分销
       if (url) {
-        let urlSpread = parseInt(url.spread);
-        if (urlSpread) {
-          cookie.set("spread", urlSpread);
-        }
+		let urlSpread = parseInt(url.spread);
+		//如果有分享人参数的话，直接进行绑定，若没登录，直接跳转登录
+		if (urlSpread) {
+			console.log('有分享人，token:'+this.$store.getters.token);
+			cookie.set("spread", urlSpread);
+			if (this.$store.getters.token==null) {
+			  this.$yrouter.replace({
+			    path: '/pages/user/Login/index',
+			  });
+			  return;
+			}
+			else{
+				//绑定推广人
+				bindSpread(urlSpread);
+			}
+		}
       }
       if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
         this.$yrouter.switchTab({

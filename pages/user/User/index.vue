@@ -55,35 +55,35 @@
         <div class="bg-white border5 flex align-center" style="height:214rpx;margin-top:15rpx;">
           <div class="left" style="padding: 50rpx 30rpx 50rpx 60rpx;">
             <div class="flex align-center" >
-              <div class="font16 text-bold">开通个人账户</div>
+              <div class="font16 text-bold">{{!userInfo.levelGr?'开通':''}}个人账户</div>
               <div class="left"></div>
               <text class="iconfont icon-jiantou font12"></text>
             </div>
             <div
-				@click="$yrouter.push('/pages/member/person/open')"
-				v-if="!userInfo.vipName"
-				class="text-center font12"
-				style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff"
-			>开启</div>
+              @click="onPerson"
+              v-if="!userInfo.levelGr"
+              class="text-center font12"
+              style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff"
+            >开启</div>
             <div v-else class="font12" style="color:#c9c9c9;margin-top:24rpx;">
-              当前级别: <span style="color:#F86741">{{userInfo.vipName}}</span>
+              当前级别: <span style="color:#F86741">{{userInfo.levelGrInfo.name}}</span>
             </div>
           </div>
           <div style="height:136rpx;border-left:1rpx dashed #E1E1E1;border-right:1rpx dashed #E1E1E1"></div>
           <div class="left" style="padding: 50rpx 30rpx 50rpx 60rpx;">
             <div class="flex align-center" >
-              <div class="font16 text-bold">开通企业账户</div>
+              <div class="font16 text-bold">{{!userInfo.levelDl?'开通':''}}企业账户</div>
               <div class="left"></div>
               <text class="iconfont icon-jiantou font12"></text>
             </div>
             <div
-            	@click="$yrouter.push('/pages/member/firm/open')"
-            	v-if="!userInfo.vipName"
+            	@click="onStore"
+            	v-if="!userInfo.levelDl"
             	class="text-center font12"
             	style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff"
             >开启</div>
             <div v-else class="font12" style="color:#c9c9c9;margin-top:24rpx;">
-              当前级别: <span style="color:#F86741">{{userInfo.vipName||'vip团长'}}</span>
+              当前级别: <span style="color:#F86741">{{userInfo.levelDlInfo.name}}</span>
             </div>
           </div>
         </div>
@@ -397,6 +397,30 @@
         this.$yrouter.push({
           path: "/pages/orderAdmin/OrderCancellation/index"
         });
+      },
+      onStore() {
+        if (this.apply) {
+          this.$store.commit('setMember', {
+            applyLevel: this.level,
+            type: 3,
+            apply: this.apply,
+          })
+          this.$yrouter.push('/pages/member/product/list')
+        } else {
+          this.$yrouter.push('/pages/member/firm/open')
+        }
+      },
+      onPerson() {
+        if (this.apply1) {
+          this.$store.commit('setMember', {
+            applyLevel: this.level1,
+            type: 2,
+            apply: this.apply1,
+          })
+          this.$yrouter.push('/pages/member/product/list')
+        } else {
+          this.$yrouter.push('/pages/member/person/open')
+        }
       }
     },
     watch: {
@@ -413,6 +437,26 @@
         this.$store.dispatch("getUser", true);
         this.MenuUser();
         this.isWeixin = isWeixin();
+
+        this.$r.get('/store/applyContinue')
+          .then(r => {
+            if (r.data && r.data.id) {
+              this.apply = r.data.id
+              this.level = r.data.level
+            } else {
+              this.apply = null
+            }
+          })
+        
+        this.$r.get('/person/applyContinue')
+          .then(r => {
+            if (r.data && r.data.id) {
+              this.apply1 = r.data.id
+              this.level1 = r.data.level
+            } else {
+              this.apply = null
+            }
+          })
       }
     },
     onHide() {

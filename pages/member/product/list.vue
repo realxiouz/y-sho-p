@@ -1,40 +1,36 @@
 <template>
 	<div>
-		<div class="flex align-center" v-for="(i,inx) in list" :key="inx">
-			<div></div>
-			<div class="left">
+		<div class="bg-white p13-h" v-for="(i,inx) in list" :key="inx">
+			<div style="padding-top:36rpx;">
 				<div class="flex">
-					<image :src="i.image" style="width: 220rpx;height:162rpx;"></image>
+					<image :src="i.image" style="width: 220rpx;height:162rpx;margin-right:20rpx;"></image>
 					<div class="left">
 						<div class="text-cut font14" style="color: #393939;">{{i.storeName}}</div>
-						<div>{{i.unitName}}</div>
+						<div class="flex" style="margin: 10rpx 0;">
+							<div class="text-center font12" style="width:160rpx;line-height:48rpx;border-radius:24rpx;color:#B2B2B2;border:1rpx solid #B2B2B2;">{{i.unitName}}</div>
+						</div>
 						<div class="flex align-center">
-							<div>{{i.price}}</div>
+							<div class="font16" style="color:#EB3425">¥{{i.price}}</div>
 							<div class="left"></div>
-							<div>
-								<view class="carnum acea-row row-center-wrapper">
-								  <view class="reduce" :class="list[inx].cartNum <= 1 ? 'on' : ''"
-								    @click.prevent="reduce(inx)">-</view>
-								  <view class="num">{{ i.cartNum }}</view>
-								  <view class="plus" :class="list[inx].cartNum >= list[inx].stock ? 'on' : ''"
-								    @click.prevent="plus(inx)">+</view>
-								</view>
+							<div class="font14" style="padding:0rpx 40rpx;line-height:60rpx;border-radius:30rpx;background:#EC4639;color:#fff;" @click="onAdd(i)">
+								加入购物车
 							</div>
 						</div>
 					</div>
 				</div>
-				<div>库存:{{i.stock}}</div>
+				<div class="font12" style="color:#B2B2B2;padding: 10rpx 0">库存:{{i.stock}}</div>
 			</div>
 		</div>
 		
 		<div style="height:120rpx;"></div>
 		<div class="fixed-wrap flex align-center justify-between p13-h">
-			<div class="font14" style="color:#393939">
+			<!-- <div class="font14" style="color:#393939">
 				已选
 				<span style="color:#E53636;margin-left: 28rpx;">{{1}}</span>
 				商品
-			</div>
-			<div class="bottom-btn red" @click="onAddStep">确认选择</div>
+			</div> -->
+			<div></div>
+			<div class="bottom-btn red" @click="onPay">去支付</div>
 		</div>
 	</div>
 </template>
@@ -53,7 +49,24 @@
 			}
 		},
 		methods: {
-			
+			onAdd(i) {
+				let d = {
+					productId: i.id,
+          cartNum: 1,
+          new: 0,
+          uniqueId: ''
+				}
+				this.$r.post('/cart/add', d)
+					.then(r => {
+						uni.showToast({
+							icon: 'none',
+							title: '商品添加成功'
+						})
+					})
+			},
+			onPay() {
+				this.$yrouter.switchTab('/pages/shop/ShoppingCart/index')
+			}
 		}
 	}
 </script>

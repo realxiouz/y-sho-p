@@ -28,7 +28,9 @@ const vuexStore = new Vuex.Store({
 			longitude: ''
 		},
 		storeItems: cookie.get("storeItems") || null,
-		goName: cookie.get("goName") || ""
+		goName: cookie.get("goName") || "",
+
+		member: {}
 	},
 	mutations: {
 		login(state, token, expires_time) {
@@ -72,6 +74,10 @@ const vuexStore = new Vuex.Store({
 		get_to(state, goName) {
 			state.goName = goName;
 			cookie.set("goName", goName);
+		},
+
+		setMember(state, member) {
+			state.member = member
 		}
 	},
 	actions: {

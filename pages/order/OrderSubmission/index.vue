@@ -270,7 +270,8 @@
     createOrder
   } from "@/api/order";
   import {
-    mapGetters
+    mapGetters,
+    mapState
   } from "vuex";
   import {
     handleOrderPayResults,
@@ -326,7 +327,10 @@
         cartid: "",
       };
     },
-    computed: mapGetters(["userInfo", "storeItems"]),
+    computed: {
+      ...mapGetters(["userInfo", "storeItems"]),
+      ...mapState(['member'])
+    },
     watch: {
       useIntegral() {
         this.computedPrice();
@@ -519,6 +523,7 @@
         // #ifdef MP-WEIXIN
         subscribeMessage()
         // #endif
+        
         createOrder(this.orderGroupInfo.orderKey, {
             realName: this.contacts,
             phone: this.contactsTel,
@@ -535,14 +540,19 @@
             shippingType: parseInt(shipping_type) + 1,
             storeId: this.storeItems ? this.storeItems.id : this.systemStore.id,
             ...from,
+            ...this.member,
           })
           .then((res) => {
+            this.$store.commit('setMember',{})
             uni.hideLoading();
             handleOrderPayResults.call(this, res.data, "create", this.active);
           })
           .catch((err) => {
             handleErrorMessage(err, "创建订单失败");
-          });
+          })
+          .finally(_ => {
+            
+          })
       },
     },
   };
