@@ -59,7 +59,7 @@
       <!-- 热门榜单 -->
       <HotCommodity :detail="likeInfo"></HotCommodity>
       <!-- 超值拼团 -->
-      <Groupon :detail="combinationList" />
+      <!-- <Groupon :detail="combinationList" /> -->
       <!-- 首发新品->秒杀 -->
       <!-- <FirstNewProduct :detail="firstList"></FirstNewProduct> -->
       <!-- 精品推荐 -->
