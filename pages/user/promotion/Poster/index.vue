@@ -4,7 +4,7 @@
       <swiper indicatorDots="true">
         <block v-for="(item, infoIndex) in info" :key="infoIndex">
           <swiper-item>
-            <image class="slide-image" :src="item.wap_poster" mode="widthFix" show-menu-by-longpress />
+            <image class="slide-image" :src="item.wap_poster" style="width: 100%;height:100%;" show-menu-by-longpress />
           </swiper-item>
         </block>
       </swiper>
