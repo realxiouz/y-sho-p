@@ -56,9 +56,9 @@
 					上传法人身份证<span class="sm">（彩色扫描件或数码照片）</span>
 				</div>
 				<div class="flex">
-					<Qiniu title="上传法人身份证正面" v-model="picFrgh"></Qiniu>
+					<Qiniu title="上传法人身份证人像面" v-model="picFrrx"></Qiniu>
 					<div style="width: 30rpx;"></div>
-					<Qiniu title="上传法人身份证正面" v-model="picFrrx"></Qiniu>
+					<Qiniu title="上传法人身份证国徽面" v-model="picFrgh"></Qiniu>
 				</div>
 				<template v-if="selType==0">
 					<div class="up-title">
