@@ -424,12 +424,18 @@
 			}
 		},
 		{
+			"path": "pages/member/person/select",
+			"style": {
+				"navigationBarTitleText": "个人开户"
+			}
+		},
+		{
 			"path": "pages/member/firm/open",
 			"style": {
 				"navigationBarTitleText": "企业开户"
 			}
-		}
-	    ,{
+		},
+		{
             "path" : "pages/member/product/list",
             "style" :                                                                                    
             {

@@ -42,6 +42,7 @@ const vuexStore = new Vuex.Store({
 			state.token = null;
 			state.userInfo = null
 			cookie.clearAll()
+			cookie.set('redirect', '')
 		},
 		backgroundColor(state, color) {
 			state.color = color;

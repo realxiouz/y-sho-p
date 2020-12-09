@@ -626,7 +626,7 @@ export function routerPermissions(url, type) {
 	} else {
 		console.log(path)
 		// 如果不是小程序跳转到登录页
-		cookie.set('redirect', path)
+		// cookie.set('redirect', path)
 		push({
 			path: '/pages/user/Login/index',
 		})

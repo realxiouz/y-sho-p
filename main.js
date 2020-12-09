@@ -128,6 +128,8 @@ if (!cookie.has(CACHE_KEY)) {
 	cookie.set(CACHE_KEY, 1);
 }
 
+cookie.set('redirect', '')
+
 var urlSpread = parseQuery()["spread"];
 if (urlSpread) {
 	cookie.set("spread", urlSpread);

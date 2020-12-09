@@ -419,7 +419,9 @@
           })
           this.$yrouter.push({path: '/pages/member/product/list', query: {type: 2}})
         } else {
-          this.$yrouter.push('/pages/member/person/open')
+          this.$yrouter.push({
+			  path: '/pages/member/person/select',
+		  })
         }
       }
     },

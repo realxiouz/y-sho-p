@@ -16,14 +16,14 @@
 						<div class="flex align-center">
 							<div class="font16" style="color:#EB3425">¥{{i.price}}</div>
 							<div class="left"></div>
-							<!-- <div class="font14" style="padding:0rpx 40rpx;line-height:60rpx;border-radius:30rpx;background:#EC4639;color:#fff;" @click="onAdd1(i)">
+							<div class="font14" style="padding:0rpx 40rpx;line-height:60rpx;border-radius:30rpx;background:#EC4639;color:#fff;" @click="onAdd1(i)">
 								加入购物车
-							</div> -->
-							<div class="flex align-center">
+							</div>
+							<!-- <div class="flex align-center">
 								<div class="control" @click.stop="onMinus(i)">-</div>
 								<div class="count">{{i.count}}</div>
 								<div class="control" @click.stop="onAdd(i)">+</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -33,11 +33,11 @@
 		
 		<div style="height:120rpx;"></div>
 		<div class="fixed-wrap flex align-center justify-between p13-h">
-			<div class="font14" style="color:#393939">
+			<!-- <div class="font14" style="color:#393939">
 				已选
 				<span style="color:#E53636;">{{selCount}}</span>
 				商品
-			</div>
+			</div> -->
 			<div></div>
 			<div class="bottom-btn red" @click="onPay">去支付</div>
 		</div>
@@ -48,7 +48,7 @@
 	export default {
 		mounted() {
 			let type = this._route.query.type || 3
-			this.$r.get(`products?typeKh=${type}`)
+			this.$r.get(`productsKh?typeKh=${type}`)
 				.then(r => {
 					this.list = r.data.map(i => {
 						i.check = false
@@ -66,9 +66,9 @@
 			onAdd1(i) {
 				let d = {
 					productId: i.id,
-          cartNum: 1,
-          new: 0,
-          uniqueId: ''
+					cartNum: 1,
+					new: 0,
+					uniqueId: ''
 				}
 				this.$r.post('/cart/add', d)
 					.then(r => {

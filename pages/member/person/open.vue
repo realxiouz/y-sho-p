@@ -68,6 +68,26 @@
 				</div>
 			</div>
 		</Modal>
+		
+		<Modal :show.sync="showCode" :is-bottom="false">
+			<div class="bg-white flex column border5" style="width: 500rpx;height:440rpx;overflow: hidden;">
+				<div class="left" style="width: 100%;border-bottom: 1rpx solid #DDDDDD;">
+					<div class="flex column align-center">
+						<div class="font20" style="color: #393939;margin: 60rpx 0;">请填写激活码</div>
+						<input class="border5"  style="height: 88rpx;width: 416rpx;background:#F5F5F5;" v-model="inviteCode" />
+					</div>
+				</div>
+				<div class="flex" style="line-height: 100rpx;">
+					<div class="left text-center" @click="showCode=false">
+						取消
+					</div>
+					<div style="width: 1rpx;height: 100rpx;background: #DDD;"></div>
+					<div class="left text-center" @click="onConfirmCode">
+						确定
+					</div>
+				</div>
+			</div>
+		</Modal>
 	</div>
 </template>
 
@@ -85,6 +105,9 @@
 				.then(r => {
 					this.levels = r.data
 				})
+			
+			this.openType = this._route.query.openType
+			this.selLevel = this._route.query.level
 		},
 		data() {
 			return {
@@ -117,6 +140,9 @@
 				name: '',
 				ownerSex: '',
 				zjhm: '',
+				
+				showCode: false,
+				inviteCode: '',
 			}
 		},
 		components: {
@@ -154,33 +180,36 @@
 			},
 			onAddStep() {
 				if (this.validateStep(this.step)) {
-					// this.step++
-				}
-				if (this.step == 0) {
-					let d = {
-						name: this.name,
-						zjlx: '身份证',
-						zjhm: this.zjhm,
-						level: this.levels[this.selLevel].id,
-						
-						province: this.province,
-						city: this.city,
-						district: this.district,
-						address: this.address,
+					if (this.step == 0) {
+						if (this.openType == 1) {
+							this.showCode = true
+						} else {
+							let d = {
+								name: this.name,
+								zjlx: '身份证',
+								zjhm: this.zjhm,
+								level: this.levels[this.selLevel].id,
+								
+								province: this.province,
+								city: this.city,
+								district: this.district,
+								address: this.address,
+							}
+							console.log(d)
+							this.$r.post('/person/applyAdd', d)
+								.then(r => {
+									this.$store.commit('setMember', {
+										applyLevel: this.levels[this.selLevel].id,
+										type: 2,
+										apply: r.data.id,
+									})
+									this.$yrouter.push({path: '/pages/member/product/list', query: {type: 2} })
+								})
+								.finally(_ => {
+									// this.$yrouter.push('/pages/member/product/list')
+								})
+						}
 					}
-					console.log(d)
-					this.$r.post('/person/applyAdd', d)
-						.then(r => {
-							this.$store.commit('setMember', {
-								applyLevel: this.levels[this.selLevel].id,
-								type: 2,
-								apply: r.data.id,
-							})
-							this.$yrouter.push({path: '/pages/member/product/list', query: {type: 2} })
-						})
-						.finally(_ => {
-							// this.$yrouter.push('/pages/member/product/list')
-						})
 				}
 			},
 			onMinusStep() {
@@ -194,6 +223,9 @@
 			},
 			onLevelChange(e) {
 				this.selLevel = e.detail.value
+			},
+			onConfirmCode() {
+				console.log(this.inviteCode)
 			},
 			validateStep(step) {
 				if (step == 0) {
@@ -227,74 +259,6 @@
 					}
 					return true
 				}
-				// } else if (step == 1) {
-				// 	if (!this.picYyzz) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '还没有上传营业执照'
-				// 		})
-				// 		return false
-				// 	}
-				// 	if (!this.picFrgh || !this.picFrrx) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '还没有上传身份证'
-				// 		})
-				// 		return false
-				// 	}
-				// 	if (!this.picQt&&this.selType==0) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '还没有上传其他证件'
-				// 		})
-				// 		return false
-				// 	}
-				// 	if (!this.bankName) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '还没有填写开户行'
-				// 		})
-				// 		return false
-				// 	}
-				// 	if (!this.bankZh) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '还没有填写开户行支行'
-				// 		})
-				// 		return false
-				// 	}
-				// 	if (!this.bankAccount) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '还没有填写银行账号'
-				// 		})
-				// 		return false
-				// 	}
-				// 	return true
-				// } else if (step == 2) {
-				// 	if (!this.name) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '填写店铺名称'
-				// 		})
-				// 		return false
-				// 	}
-				// 	if (!this.latitude) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '还没有选择地址'
-				// 		})
-				// 		return false
-				// 	}
-				// 	if (!this.picDpmt) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '上传店铺门头照片'
-				// 		})
-				// 		return false
-				// 	}
-				// 	return true
-				// }
 			}
 		}
 	}

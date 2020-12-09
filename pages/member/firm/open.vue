@@ -79,16 +79,16 @@
 				  </view>
 				  <view class="item acea-row row-between-wrapper">
 						<view class="name">开户行</view>
-						<input type="text" placeholder="请输入联系电话" v-model="bankName" required />
+						<input type="text" placeholder="请输入开户行" v-model="bankName" required />
 				  </view>
 					<view class="item acea-row row-between-wrapper">
 						<view class="name">开户支行</view>
-						<input type="text" placeholder="请输入联系电话" v-model="bankZh" required />
+						<input type="text" placeholder="请输入开户支行" v-model="bankZh" required />
 				  </view>
 				  
 				  <view class="item acea-row row-between-wrapper">
 						<view class="name">银行账号</view>
-						<input type="text" placeholder="请填写具体地址" v-model="bankAccount" required />
+						<input type="text" placeholder="请填写银行账号" v-model="bankAccount" required />
 				  </view>
 				</view>
 			</div>

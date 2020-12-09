@@ -1,6 +1,6 @@
 <template>
-	<div class="qiniu-wrap">
-		<div v-if="!value" style="height: 100%;" class="flex column align-center" @click="onUpload">
+	<div class="qiniu-wrap" @click="onUpload">
+		<div v-if="!value" style="height: 100%;" class="flex column align-center" >
 			<image src="/static/images/file.png" style="width:64rpx;height:64rpx;margin: 30rpx 0 16rpx;" ></image>
 			<div class="font10" style="color: #B5B5B5;">{{title}}</div>
 		</div>
