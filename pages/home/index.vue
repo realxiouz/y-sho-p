@@ -19,10 +19,10 @@
       :style="{ background: bgcolor }"
       :class="{ active: bgcolor }"
     >
-      <cu-custom :isBack="true" :bgColor="bgcolor">
-        <block slot="backText">
+      <cu-custom :isBack="false" :bgColor="bgcolor">
+        <div slot="content" style="text-align:center;background:#fff;">
           <text class="nav-title shopro-selector-rect">{{ "卿悦商城" }}</text>
-        </block>
+        </div>
       </cu-custom>
     </view>
     <view
@@ -81,6 +81,7 @@
       @close="couponClose"
     >
     </Coupon-window>
+    <div style="height:50px;"></div>
   </view>
 </template>
 <script>
@@ -411,7 +412,7 @@ export default {
     font-size: 38rpx;
     font-family: PingFang SC;
     font-weight: 500;
-    color: #fff;
+    color: #000;
   }
 }
 

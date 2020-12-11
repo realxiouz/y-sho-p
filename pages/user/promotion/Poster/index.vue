@@ -81,45 +81,47 @@
         this.isDown = true;
         var downloadUrl = imgsrc;
 
-        if (!wx.saveImageToPhotosAlbum) {
-          uni.showModal({
-            title: "提示",
-            content: "当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。"
-          });
-          that.openDialogVisible = true;
+        // if (!wx.saveImageToPhotosAlbum) {
+        //   uni.showModal({
+        //     title: "提示",
+        //     content: "当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。"
+        //   });
+        //   that.openDialogVisible = true;
 
-          return;
-        }
+        //   return;
+        // }
 
         // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.writePhotosAlbum" 这个 scope
-        wx.getSetting({
-          success(res) {
-            if (!res.authSetting["scope.writePhotosAlbum"]) {
-              that.openDialogVisible = true;
+        // wx.getSetting({
+        //   success(res) {
+        //     if (!res.authSetting["scope.writePhotosAlbum"]) {
+        //       that.openDialogVisible = true;
 
-              // 接口调用询问
-              wx.authorize({
-                scope: "scope.writePhotosAlbum",
-                success() {
-                  that.downloadFile(downloadUrl);
-                },
-                fail() {
-                  // 用户拒绝了授权
-                  // 打开设置页面
-                  wx.openSetting({
-                    success: function (data) {},
-                    fail: function (data) {}
-                  });
-                }
-              });
-            } else {
-              that.downloadFile(downloadUrl);
-            }
-          },
-          fail(res) {
-            that.openDialogVisible = true;
-          }
-        });
+        //       // 接口调用询问
+        //       wx.authorize({
+        //         scope: "scope.writePhotosAlbum",
+        //         success() {
+        //           that.downloadFile(downloadUrl);
+        //         },
+        //         fail() {
+        //           // 用户拒绝了授权
+        //           // 打开设置页面
+        //           wx.openSetting({
+        //             success: function (data) {},
+        //             fail: function (data) {}
+        //           });
+        //         }
+        //       });
+        //     } else {
+        //       that.downloadFile(downloadUrl);
+        //     }
+        //   },
+        //   fail(res) {
+        //     that.openDialogVisible = true;
+        //   }
+        // });
+		
+		that.downloadFile(downloadUrl);
       },
       saveImg: function () {
         this.downloadIamge(
@@ -128,21 +130,35 @@
         );
       },
       downloadFile(url){
-        uni.downloadFile({
-          url,
-          fail: function(res) {
-            uni.showModal({
-            title: "提示",
-            content: "保存失败"
-          });
-          },
-          success: function(res) {
-            uni.showModal({
-            title: "提示",
-            content: "保存成功"
-          });
-          }
-        });
+
+      // let alink = document.createElement('a');
+      // alink.href = url;
+      // alink.download = url;
+      // alink.click();
+	  
+	  var link = document.createElement('a');
+	  link.download = 'share.png';
+	  link.style.display = 'none';
+	  link.href = url;
+	  document.body.appendChild(link);
+	  link.click();
+	  document.body.removeChild(link);
+        // uni.downloadFile({
+        //   url,
+        //   fail: function(res) {
+        //     uni.showModal({
+        //     title: "提示",
+        //     content: "保存失败"
+        //   });
+        //   },
+        //   success: function(res) {
+        //     console.log(res)
+        //     uni.showModal({
+        //     title: "提示",
+        //     content: "保存成功"
+        //   });
+        //   }
+        // });
       }
     }
   };

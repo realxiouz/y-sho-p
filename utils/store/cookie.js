@@ -31,7 +31,7 @@ function remove(key) {
 function clearAll() {
   const res = uni.getStorageInfoSync();
   res.keys.map((item) => {
-    if (item == 'redirect' || item == 'spread') {
+    if (item == 'redirect' || item == 'spread'|| item == 'login_status') {
       return
     }
     remove(item)
