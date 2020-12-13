@@ -41,7 +41,7 @@ export default {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 1110;
+	z-index: 10;
 	opacity: 0;
 	outline: 0;
 	text-align: center;

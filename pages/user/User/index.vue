@@ -459,6 +459,8 @@
               this.apply = null
             }
           })
+		 
+				this.$r.post('/user/levelCodeList')
       }
     },
     onHide() {

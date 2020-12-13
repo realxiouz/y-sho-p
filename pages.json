@@ -444,6 +444,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/member/myCode/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "店铺名额",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

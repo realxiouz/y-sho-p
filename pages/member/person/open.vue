@@ -74,7 +74,7 @@
 				<div class="left" style="width: 100%;border-bottom: 1rpx solid #DDDDDD;">
 					<div class="flex column align-center">
 						<div class="font20" style="color: #393939;margin: 60rpx 0;">请填写激活码</div>
-						<input class="border5"  style="height: 88rpx;width: 416rpx;background:#F5F5F5;" v-model="inviteCode" />
+						<input class="border5" placeholder="输入激活码"  style="height: 88rpx;width: 416rpx;background:#F5F5F5;" v-model="inviteCode" />
 					</div>
 				</div>
 				<div class="flex" style="line-height: 100rpx;">
@@ -225,7 +225,30 @@
 				this.selLevel = e.detail.value
 			},
 			onConfirmCode() {
-				console.log(this.inviteCode)
+				if (!this.inviteCode) {
+					uni.showToast({
+						title: '请输入邀请码',
+						icon: 'none'
+					})
+					return
+				}
+				let d = {
+					code: this.inviteCode
+				}
+				this.$r.post('/user/levelCodeUse', d)
+					.then(r => {
+						uni.showToast({
+							icon: 'none',
+							title: '激活成功'
+						})
+						this.$yrouter.switchTab({path: '/pages/user/User/index'});
+					})
+					.catch(e => {
+						uni.showToast({
+							icon: 'none',
+							title: e.msg
+						})
+					})
 			},
 			validateStep(step) {
 				if (step == 0) {
