@@ -7,24 +7,35 @@
 			</div>
 		</div>
 		<template v-if="curTab==0">
+			<div class="text-center" style="line-height:100rpx;color:#7D7D7D;font-size:12px">
+				共有{{userCount}}位成员
+			</div>
 			<div class="flex align-center code-item" v-for="(i,inx) in list" :key="inx">
-				<img src="" style="width: 90rpx;height: 90rpx;" />
+				<img :src="i.avatar" style="width: 90rpx;height: 90rpx;margin-right:10rpx" />
 				<div class="left">
-					<div style="font-size:14px;color:#393939">{{i.code}}</div>
-					<div style="font-size:10px;color:#8B8B8B">{{i.lname}}</div>
+					<div style="font-size:14px;color:#393939">{{i.username}}</div>
+					<div style="font-size:10px;color:#8B8B8B">{{i.levelGrName}}</div>
 				</div>
-				<div class="btn" :class="{dis: i.useFor!=0}" @click="onGive(i)">
-					{{i.useFor==0?'赠送名额':'已赠送'}}
+				<div class="btn" :class="{dis: i.statusSend!=0}" @click="onGive(i)">
+					{{i.statusSend==0?'赠送名额':'已赠送'}}
 				</div>
 			</div>
 		</template>
-		
+		<template v-if="curTab==1">
+			<div class="his-item" v-for="(i,inx) in list" :key="inx">
+				<div class="flex">
+					<div class="left" style="font-size:14px;color:#373737">{{`${i.updateTime}赠送了${i.useForName} ${i.lname}`}}</div>
+					<div style="font-size:12px;" :style="{color: cMap[i.status]}">{{sMap[i.status]}}</div>
+				</div>
+				<div style="font-size:10px;color:#F2F2F2">有效期:{{`${getDay(i.updateTime)}---${getDay(i.useForEndTime)}`}}</div>
+			</div>
+		</template>
 		<Modal :show.sync="showGive" :is-bottom="false">
 			<div class="bg-white flex column border5" style="width: 500rpx;height:440rpx;overflow: hidden;">
 				<div class="left" style="width: 100%;border-bottom: 1rpx solid #DDDDDD;">
 					<div class="flex column align-center">
 						<div class="font20" style="color: #393939;margin: 60rpx 0;">确定要赠送么?</div>
-						<input class="border5" placeholder="输入赠送人手机号"  style="height: 88rpx;width: 416rpx;background:#F5F5F5;" v-model="giveNumber" />
+						<div class="border5" style="line-height: 88rpx;width: 416rpx;">您有{{codeCount}}个赠送名额</div>
 					</div>
 				</div>
 				<div class="flex" style="line-height: 100rpx;">
@@ -62,6 +73,16 @@
 				
 				showGive: false,
 				giveNumber: '',
+				selCode: {},
+				codeCount: 0,
+				userCount: 0,
+				sMap: {
+					'0':'未使用',
+					'1':'已使用',
+					'2':'已禁用',
+					'3':'已过期'
+				},
+				cMap: {					'0':'#617ECB',					'1':'#AAAAAA',					'2':'#E37A7A',					'3':'#E37A7A'				}
 			};
 		},
 		methods: {
@@ -82,6 +103,24 @@
 						page: this.page
 					}
 					this.isLoading = true
+					this.$r.post('/user/levelCodeUserList', d)
+						.then(r => {
+							this.codeCount = r.data.codeCount
+							this.userCount = r.data.userCount
+							this.list.push(...r.data.list)
+							if (r.data.list.length < 10) {
+								this.isEnd = true
+							}
+						})
+						.finally(_ => {
+							this.isLoading = false
+						})
+				} else if (this.curTab == 1) {
+					let d = {
+						page: this.page,
+						statusSend: 1,
+					}
+					this.isLoading = true
 					this.$r.post('/user/levelCodeList', d)
 						.then(r => {
 							this.list.push(...r.data)
@@ -95,7 +134,7 @@
 				}
 			},
 			onGive(i) {
-				if (i.useFor==0) {
+				if (i.statusSend==0) {
 					this.selCode = i
 					this.showGive = true
 				}
@@ -105,10 +144,9 @@
 				// 	return
 				// }
 				let d = {
-					code: this.selCode.code,
-					phone: this.giveNumber
+					uid: this.selCode.uid
 				}
-				this.$r.post('user/levelCodeSend', d)
+				this.$r.post('/user/levelCodeSend', d)
 					.then(r => {
 						this.showGive = false
 						uni.showToast({
@@ -123,6 +161,9 @@
 							icon: 'none'
 						})
 					})
+			},
+			getDay(t) {
+				return t.split(' ')[0]
 			}
 		},
 		onReachBottom() {
@@ -185,6 +226,12 @@
 			color: #4E4E4E;
 		}
 	}
+}
+
+.his-item{
+	background: #fff;
+	border-bottom: 1rpx solid #F2F2F2;
+	padding: 30rpx 40rpx 20rpx;
 }
 </style>
 

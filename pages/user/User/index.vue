@@ -47,9 +47,9 @@
             <text>当前积分</text>
             <text class="num">{{ userInfo.integral || 0 }}</text>
           </view>
-          <view @click="goUserCoupon()" class="item">
-            <text>优惠券</text>
-            <text class="num">{{ userInfo.couponCount || 0 }}</text>
+          <view @click="goUserPromotion()" class="item">
+            <text>预估收益</text>
+            <text class="num">{{ userInfo.bounsPre || 0 }}</text>
           </view>
         </view>
         <div class="bg-white border5 flex align-center" style="height:214rpx;margin-top:15rpx;">
@@ -66,7 +66,7 @@
               style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff"
             >开启</div>
             <div v-else class="font12" style="color:#c9c9c9;margin-top:24rpx;">
-              当前级别: <span style="color:#F86741">{{userInfo.levelGrInfo.name}}</span>
+              当前级别: <span style="color:#F86741">{{userInfo.levelDlInfo&&userInfo.levelGrInfo.name}}</span>
             </div>
           </div>
           <div style="height:136rpx;border-left:1rpx dashed #E1E1E1;border-right:1rpx dashed #E1E1E1"></div>
@@ -83,7 +83,7 @@
             	style="margin-top:24rpx;width:148rpx;line-height:50rpx;border-radius:25rpx;background: linear-gradient(90deg, #FFC04B 0%, #F69239 100%);color:#fff"
             >开启</div>
             <div v-else class="font12" style="color:#c9c9c9;margin-top:24rpx;">
-              当前级别: <span style="color:#F86741">{{userInfo.levelDlInfo.name}}</span>
+              当前级别: <span style="color:#F86741">{{userInfo.levelDlInfo&&userInfo.levelDlInfo.name}}</span>
             </div>
           </div>
         </div>
